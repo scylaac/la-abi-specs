@@ -14,49 +14,533 @@ Binary Interface (ABI) of the LoongArch Architecture.
 Procedure call, function call, calling conventions, data layout.
 
 === Version History
+
+NOTE: todo
+//- **v3.00**
+//
+//    * Split from the original psABI documentation (v2.01).
+//    * Differentiate machine data types with the C/C++ types.
+
 === Release and defects report
+NOTE: todo
+
 === License
+NOTE: todo
+
 === About the license
+NOTE: todo
+
 === Contributions
+NOTE: todo
+
 === Trademark notice
+NOTE: todo
 
 == Introduction
-=== Scope
-=== Terms and abbreviations
-=== Design goals
-=== Conformance
+This document defines the constraints on the program contexts exchanged between
+the caller and called subroutines or a subroutine and the execution environment.
+The subroutines following these constraints can be compiled and assembled separately
+and work together in the same program.
+
+That includes constraints on:
+
+- The initial program context created by the caller for the callee.
+- The program context when the callee finishes its execution and returns to the caller.
+- How subroutine arguments and return values should be encoded in these program contexts.
+- How certain global states may be accessed and preserved by all subroutines.
+
+However, this document does not formally define how standard programming language entities
+should be represented in the machine's program context, and the language binding should be
+described separately.
+//TODO: where?
+
+== Terms and abbreviations
+
+__**GPR**__
+
+General-purpose registers.
+
+__**FPR**__
+
+Floating-point registers.
+
+__**GRLEN**__
+
+The bit-width of a general-purpose register of the current LoongArch machine.
+
+__**FRLEN**__
+
+The bit-width of a floating-point register of the current LoongArch machine.
+
+NOTE: todo
 
 == Data types and alignment
-=== Fundamental Data Types
-=== Half-precision Floating Point
-=== Decimal Floating Point
-=== Short Vectors
-=== Pointers
+
+The following machine-supported data types are the basic building blocks for passing
+information across subroutines in the memory or registers.
+
+.Byte size and byte alignment of machine-supported data types
+[%header,cols="1,1,1,1,1"]
+|===
+|Type class
+|Machine type
+|Byte size
+|Natural alignment (bytes)
+|Note
+
+.8+| Integral         | Unsigned byte         | 1       | 1         .2+| Character
+                      | Signed byte           | 1       | 1
+                      | Unsigned half-word    | 2       | 2         |
+                      | Signed half-word      | 2       | 2         |
+                      | Unsigned word         | 4       | 4         |
+                      | Signed word           | 4       | 4         |
+                      | Unsigned double-word  | 8       | 8         |
+                      | Signed double-word    | 8       | 8         |
+
+.2+| Floating Point   | Single Precision      | 4       | 4         .2+| IEEE 754-2008
+                      | Double Precision      | 8       | 8
+
+.2+| Pointer          | 32-bit data pointer   | 4       | 4         |
+                      | 64-bit data pointer   | 8       | 8         |
+|===
+
 === Byte order ("Endianness")
+The memory is byte-addressable for LoongArch machines, and the ordering of the bytes
+in machine-supported multi-byte data types are **little-endian**. That is, the least
+significant byte of a data object is at the lowest byte address the data object
+occupies in memory.
+
 === Composite Types
+A composite type is a collection of one or more fundamental data types that are handled
+as a single entity at the procedure call level. A composite type can be any of:
+
+- An aggregate: where the member objects are laid out sequentially in memory
+(possibly with padding space between them).
+
+- A union: where each of the members starts from the same address.
+
+- An array: which is a repeated sequence of objects of the same other type.
+
+Composite types may be member types of other composite types. The alignment of m composite types may be subject to change
+
 ==== Aggregates
 ==== Unions
 ==== Arrays
 ==== Bit-fields subdivision
+* Bit-fields are stored in little-endian.
 
-== The Base Procedure Call Standard
+=== The registers
 
-=== Machine Registers
+All LoongArch machines have 32 general-purpose registers, and optionally 32
+floating-point registers. Some of these registers may be used for passing
+arguments and return values between the caller and callee subroutines.
+
+The bit-width of both general-purpose registers and floating-point registers
+may be either 32- or 64-bit, depending on whether the machine implements the LA32
+or LA64 instruction set, and whether they have a double- or single-precision FPU.
+
+As a general rule, unsigned integer objects are zero-extended, and the signed
+integer data types are sign-extended when passed in the general-purpose registers
+as subroutine arguments and return values.
+
+One exception to above rule is that in *LP64D* ABI, unsigned words,
+such as those representing `*unsigned int*` in <<C, C-data-types>>,
+are stored in general-purpose registers as proper sign extensions of
+their 32-bit values.
+
+NOTE: In the following text, we use the term "temporary register" for
+referring to caller-saved registers and "static registers" for callee-saved registers.
+
 ==== General-purpose registers
-==== SIMD and Floating-Point registers
 
-=== Threads and processes
+.General-purpose Register Convention
+[%header,cols="2,2,^5,^3"]
+|===
+|Name
+|Alias
+|Meaning
+|Preserved across calls
 
-=== Memory and the Stack
+|`$r0`
+|`$zero`
+|Constant zero
+|(Constant)
 
-==== Memory address
-==== Categories of memory
-==== The Stack
-==== The Frame Pointer
+|`$r1`
+|`$ra`
+|Return address
+|No
 
-=== Subroutine calls
-=== Parameter passing
-=== Result return
-=== Interworking between 32-bit and 64-bit procedures
+|`$r2`
+|`$tp`
+|Thread pointer
+|(Non-allocatable)
 
-== LoongArch C and C++ language mappings
+|`$r3`
+|`$sp`
+|Stack pointer
+|Yes
+
+|`$r4` - `$r5`
+|`$a0` - `$a1`
+|Argument registers / return value registers
+|No
+
+|`$r6` - `$r11`
+|`$a2` - `$a7`
+|Argument registers
+|No
+
+|`$r12` - `$r20`
+|`$t0` - `$t8`
+|Temporary registers
+|No
+
+|`$r21`
+|
+|Reserved
+|(Non-allocatable)
+
+|`$r22`
+|`$fp` / `$s9`
+|Frame pointer / Static register
+|Yes
+
+|`$r23` - `$r31`
+|`$s0` - `$s8`
+|Static registers
+|Yes
+|===
+
+==== Floating-Point registers
+
+.Floating-point Register Convention
+[%header,cols="2,2,^5,^3"]
+|===
+|Name
+|Alias
+|Meaning
+|Preserved across calls
+
+|`$f0` - `$f1`
+|`$fa0` - `$fa1`
+|Argument registers / return value registers
+|No
+
+|`$f2` - `$f7`
+|`$fa2` - `$fa7`
+|Argument registers
+|No
+
+|`$f8` - `$f23`
+|`$ft0` - `$ft15`
+|Temporary registers
+|No
+
+|`$f24` - `$f31`
+|`$fs0` - `$fs7`
+|Static registers
+|Yes
+|===
+
+== The base ABI variants
+
+Depending on the bit-width of the general-purpose registers and the floating-point
+registers, different ABI variants can be adopted to preserve arguments and return
+values in the registers as much as possible.
+
+[[base-abi-types]]
+.Base ABI Types
+[%header,cols="2m,^3"]
+|===
+|Name
+|Description
+
+|lp64s
+|Uses 64-bit GPRs and the stack for parameter passing.
+Data model is <<dm-lp64, LP64>> for programming languages.
+
+|lp64f
+|Uses 64-bit GPRs, 32-bit FPRs and the stack for parameter passing.
+Data model is <<dm-lp64, LP64>> for programming languages.
+
+|lp64d
+|Uses 64-bit GPRs, 64-bit FPRs and the stack for parameter passing.
+Data model is <<dm-lp64, LP64>> for programming languages.
+
+|ilp32s
+|Uses 32-bit GPRs and the stack for parameter passing.
+Data model is <<dm-ilp32, ILP32>> for programming languages.
+
+|ilp32f
+|Uses 32-bit GPRs, 32-bit FPRs and the stack for parameter passing.
+Data model is <<dm-ilp32, ILP32>> for programming languages.
+
+|ilp32d
+|Uses 32-bit GPRs, 64-bit FPRs and the stack for parameter passing.
+Data model is <<dm-ilp32, ILP32>> for programming languages.
+|===
+
+=== Passing arguments and return values in registers
+
+The basic rationale of the LoongArch procedure calling convention is to pass
+arguments in registers as much as possible (i.e. floating-point arguments are
+passed in floating-point registers and non floating-point arguments are passed
+in general-purpose registers, as much as possible); arguments are passed on
+the stack only when no appropriate register is available.
+
+The argument registers are:
+
+* 8 floating-point registers `fa0-fa7` for passing pass floating-point
+arguments, where `fa0-fa1` are also used for returning FP values.
+
+* 8 general-purpose registers `a0-a7` for passing pass integral arguments,
+where `a0-a1` are also used for returning integral values.
+
+Generally speaking, FARs are only used to pass floating-point arguments,
+GARs are used to pass non floating-point arguments and floating-point arguments
+when no FAR is available (`long double` type is also passed in a pair of GARs)
+and the reference.
+
+In addition, subroutines should ensure that the values of general-purpose
+registers `s0-s9` and floating-point registers `fs0-fs7` are preserved across
+procedure calls.
+
+=== Argument passing rules
+
+==== Scalar
+
+There are two cases:
+
+. 0 < WOA ≤ GRLEN
+
+.. Argument is passed in a single argument register, or on the stack by value if none is available.
+
+... If the argument is floating-point type, the argument is passed in FAR.
+if no FAR is available, it’s passed in GAR. If no GAR is available, it’s passed on the stack.
+When passed in registers or on the stack, floating-point types narrower than GRLEN bits are widened to GRLEN bits, with the upper bits undefined.
+
+... If the argument is integer or pointer type, the argument is passed in GAR.
+If no GAR is available, it’s passed on the stack.
+When passed in registers or on the stack, the unsigned integer scalars narrower than GRLEN bits are zero-extended to GRLEN bits, and the signed integer scalars are sign-extended.
+
+. GRLEN < WOA ≤ 2 × GRLEN
+
+.. The argument is passed in a pair of GAR, with the low-order GRLEN bits in the lower-numbered register and the high-order GRLEN bits in the higher-numbered register.
+If exactly one register is available, the low-order GRLEN bits are passed in the register and the high-order GRLEN bits are passed on the stack.
+If no GAR is available, it’s passed on the stack.
+
+==== Structure
+
+Empty structures are ignored by C compilers which support them as a non-standard extension(same as union arguments and return values).
+Bits unused due to padding, and bits past the end of a structure whose size in bits is not divisible by GRLEN, are undefined.
+And the layout of the structure on the stack is consistent with that in memory.
+
+. 0 < WOA ≤ GRLEN
+
+.. The structure has only fixed-point members.
+If there is an available GAR, the structure is passed through the GAR by value passing; If no GAR is available, it’s passed on the stack.
+
+.. The structure has only floating-point members:
+
+... One floating-point member.
+The argument is passed in a FAR; If no FAR is available, the value is passed in a GAR; if no GAR is available, the value is passed on the stack.
+
+... Two floating-point members.
+The argument is passed in a pair of available FAR, with the low-order `float` member bits in the lower-numbered FAR and the high-order `float` member bits in the higher-numbered FAR.
+If the number of available FAR is less than 2, it’s passed in a GAR, and passed on the stack if no GAR is available.
+
+.. The structure has both fixed-point and floating-point members, i.e. the structure has one `float` member and...
+
+... Multiple fixed-point members.
+If there are available GAR, the structure is passed in a GAR, and passed on the stack if no GAR is available.
+
+... Only one fixed-point member.
+If one FAR and one GAR are available, the floating-point member of the structure is passed in the FAR, and the integer member of the structure is passed in the GAR; If no floating-point register but one GAR is available, it’s passed in GAR; If no GAR is available, it’s passed on the stack.
+
+. GRLEN < WOA ≤ 2 × GRLEN
+
+.. Only fixed-point members.
+
+... The argument is passed in a pair of available GAR, with the low-order bits in the lower-numbered GAR and the high-order bits in the higher-numbered GAR.
+If only one GAR is available, the low-order bits are in the GAR and the high-order bits are on the stack, and passed on the stack if no GAR is available.
+
+.. Only floating-point members.
+
+... The structure has one `long double` member or one `double` member and two adjacent `float` members or 3-4 `float` members.
+The argument is passed in a pair of available GAR, with the low-order bits in the lower-numbered GAR and the high-order bits in the higher-numbered GAR.
+If only one GAR is available, the low-order bits are in the GAR and the high-order bits are on the stack, and passed on the stack if no GAR is available.
+... The structure with two `double` members is passed in a pair of available FARs. If no a pair of available FARs, it's passed in GARs. A structure with one `double` member and one `float` member is same.
+
+.. Both fixed-point and floating-point members.
+
+... The structure has one `double` member and only one fixed-point member.
+
+.... If one FAR and one GAR are available, the floating-point member of the structure is passed in the FAR, and the integer member of the structure is passed in the GAR; If no floating-point registers but two GARs are available, it’s passed in the two GARs; If only one GAR is available, the low-order bits are in the GAR and the high-order bits are on the stack; And it’s passed on the stack if no GAR is available.
+
+... Others 
+
+.... The argument is passed in a pair of available GAR, with the low-order bits in the lower-numbered GAR and the high-order bits in the higher-numbered GAR.
+If only one GAR is available, the low-order bits are in the GAR and the high-order bits are on the stack, and passed on the stack if no GAR is available.
+
+. WOA > 2 × GRLEN
+
+.. It’s passed by reference and are replaced in the argument list with the address.
+If there is an available GAR, the reference is passed in the GAR, and passed on the stack if no GAR is available.
+
+Structure and scalars passed on the stack are aligned to the greater of the type alignment and GRLEN bits, but never more than the stack alignment.
+
+==== Union
+
+Union is passed in GAR or stack.
+
+. 0 < WOA ≤ GRLEN
+
+.. The argument is passed in a GAR, or on the stack by value if no GAR is available.
+
+. GRLEN < WOA ≤ 2 × GRLEN
+
+.. The argument is passed in a pair of available GAR, with the low-order bits in the lower-numbered GAR and the high-order bits in the higher-numbered GAR.
+If only one GAR is available, the low-order bits are in the GAR and the high-order bits are on the stack.
+The arguments are passed on the stack when no GAR is available.
+
+. WOA > 2 × GRLEN
+
+.. It’s passed by reference and are replaced in the argument list with the address.
+If there is an available GAR, the reference is passed in the GAR, and passed on the stack if no GAR is available.
+
+==== Complex
+
+A complex floating-point number, or a structure containing just one complex floating-point number, is passed as though it were a structure containing two floating-point reals.
+
+==== Variadic arguments
+
+Variadic arguments are passed in GARs in the same manner as named arguments. And after a variadic argument has been passed on the stack, all future arguments will also be passed on the stack, i.e., the last argument register may be left unused due to the aligned register pair rule.
+
+. 0 < WOA ≤ GRLEN
+
+.. The variadic arguments are passed in a GAR, or on the stack by value if no GAR is available.
+
+. GRLEN < WOA ≤ 2 × GRLEN
+
+.. The variadic arguments are passed in a pair of GARs. If only one GAR is available, the low-order bits are in the GAR and the high-order bits are on the stack, and passed on the stack if no GAR is available. or on the stack by value if none is available. It should be noted that `long double` data tpye is passed in an aligned GAR pair(the first register in the pair is even-numbered).
+
+. WOA > 2 × GRLEN
+
+.. It’s passed by reference and are replaced in the argument list with the address.
+If there is an available GAR, the reference is passed in the GAR, and passed on the stack if no GAR is available.
+
+=== Return values
+
+. Generally speaking, `a0` and `a1` are used to return non floating-point values, and `fa0` and `fa1` are used to return floating-point values.
+
+. Values are returned in the same manner as a first named argument of the same type would be passed.
+If such an argument would have been passed by reference, the caller allocates memory for the return value, and passes the address as an implicit first argument.
+
+. The reference of the return value is returned that is stored in GAR `a0` if the size of the return value is larger than 2×GRLEN bits.
+
+=== Stack
+
+. In general, the stack frame for a subroutine may contain space to contain the following:
+
+.. Space to store arguments passed to subroutines that this subroutine calls.
+
+.. A place to store the subroutine’s return address.
+
+.. A place to store the values of saved registers.
+
+.. A place for local data storage.
+
+. The stack grows downwards (towards lower addresses) and the stack pointer shall be aligned to a 128-bit boundary upon procedure entry.
+The first argument passed on the stack is located at offset zero of the stack pointer on function entry; following arguments are stored at correspondingly higher addresses.
+
+. Procedures must not rely upon the persistence of stack-allocated data whose addresses lies below the stack pointer.
+
+
+[[C-data-types]]
+== Appendix: C data types
+
+[[dm-lp64]]
+.LP64 Data Model (base ABI types: `lp64d` `lp64f` `lp64s`)
+[%header,cols="^1,^1"]
+|===
+|Scalar type
+|Machine type
+
+|`bool` / `_Bool`
+|Unsigned / signed byte
+
+|`unsigned char` / `char`
+|Unsigned / signed byte
+
+|`unsigned short` / `short`
+|Unsigned / signed half-word
+
+|`unsigned int` / `int`
+|Unsigned / signed word
+
+|`unsigned long` / `long`
+|Unsigned / signed double-word
+
+|`unsigned long long` / `long long`
+|Unsigned / signed double-word
+
+|pointer types
+|64-bit data pointer
+
+|`float`
+|Single precision
+
+|`double`
+|Double precision
+|===
+
+[[dm-ilp32]]
+.ILP32 Data Model (base ABI types: `ilp32d` `ilp32f` `ilp32s`)
+[%header,cols="^1,^1"]
+|===
+|Scalar type
+|Machine type
+
+|`bool` / `_Bool`
+|Unsigned / signed byte
+
+|`unsigned char` / `char`
+|Unsigned / signed byte
+
+|`unsigned short` / `short`
+|Unsigned / signed half-word
+
+|`unsigned int` / `int`
+|Unsigned / signed word
+
+|`unsigned long` / `long`
+|Unsigned / signed word
+
+|`unsigned long long` / `long long`
+|Unsigned / signed double-word
+
+|pointer types
+|32-bit data pointer
+
+|`float`
+|Single precision
+
+|`double`
+|Double precision
+|===
+
+* For all <<base-abi-type-marks, base ABI types>> of LoongArch,
+the `char` datatype is signed by default.
+
+//=== Memory and the Stack
+//==== Memory address
+//==== Categories of memory
+//==== The Stack
+//==== The Frame Pointer
+//
+//=== Subroutine calls
+//=== Parameter passing
+//=== Result return
+//=== Interworking between 32-bit and 64-bit procedures
+
