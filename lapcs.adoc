@@ -121,7 +121,6 @@ as a single entity at the procedure call level. A composite type can be any of:
 
 - An array: which is a repeated sequence of objects of the same other type.
 
-Composite types may be member types of other composite types. The alignment of m composite types may be subject to change
 
 ==== Aggregates
 ==== Unions
@@ -129,7 +128,7 @@ Composite types may be member types of other composite types. The alignment of m
 ==== Bit-fields subdivision
 * Bit-fields are stored in little-endian.
 
-=== The registers
+== The registers
 
 All LoongArch machines have 32 general-purpose registers, and optionally 32
 floating-point registers. Some of these registers may be used for passing
@@ -151,7 +150,7 @@ their 32-bit values.
 NOTE: In the following text, we use the term "temporary register" for
 referring to caller-saved registers and "static registers" for callee-saved registers.
 
-==== General-purpose registers
+=== General-purpose registers
 
 .General-purpose Register Convention
 [%header,cols="2,2,^5,^3"]
@@ -212,7 +211,7 @@ referring to caller-saved registers and "static registers" for callee-saved regi
 |Yes
 |===
 
-==== Floating-Point registers
+=== Floating-Point registers
 
 .Floating-point Register Convention
 [%header,cols="2,2,^5,^3"]
@@ -243,7 +242,7 @@ referring to caller-saved registers and "static registers" for callee-saved regi
 |Yes
 |===
 
-== The base ABI variants
+=== The base ABI variants
 
 Depending on the bit-width of the general-purpose registers and the floating-point
 registers, different ABI variants can be adopted to preserve arguments and return
@@ -306,9 +305,9 @@ In addition, subroutines should ensure that the values of general-purpose
 registers `s0-s9` and floating-point registers `fs0-fs7` are preserved across
 procedure calls.
 
-=== Argument passing rules
+== Argument passing rules
 
-==== Scalar
+=== Scalar
 
 There are two cases:
 
@@ -330,7 +329,7 @@ When passed in registers or on the stack, the unsigned integer scalars narrower 
 If exactly one register is available, the low-order GRLEN bits are passed in the register and the high-order GRLEN bits are passed on the stack.
 If no GAR is available, it’s passed on the stack.
 
-==== Structure
+=== Structure
 
 Empty structures are ignored by C compilers which support them as a non-standard extension(same as union arguments and return values).
 Bits unused due to padding, and bits past the end of a structure whose size in bits is not divisible by GRLEN, are undefined.
@@ -390,7 +389,7 @@ If there is an available GAR, the reference is passed in the GAR, and passed on 
 
 Structure and scalars passed on the stack are aligned to the greater of the type alignment and GRLEN bits, but never more than the stack alignment.
 
-==== Union
+=== Union
 
 Union is passed in GAR or stack.
 
@@ -409,11 +408,11 @@ The arguments are passed on the stack when no GAR is available.
 .. It’s passed by reference and are replaced in the argument list with the address.
 If there is an available GAR, the reference is passed in the GAR, and passed on the stack if no GAR is available.
 
-==== Complex
+=== Complex
 
 A complex floating-point number, or a structure containing just one complex floating-point number, is passed as though it were a structure containing two floating-point reals.
 
-==== Variadic arguments
+=== Variadic arguments
 
 Variadic arguments are passed in GARs in the same manner as named arguments. And after a variadic argument has been passed on the stack, all future arguments will also be passed on the stack, i.e., the last argument register may be left unused due to the aligned register pair rule.
 
@@ -439,7 +438,7 @@ If such an argument would have been passed by reference, the caller allocates me
 
 . The reference of the return value is returned that is stored in GAR `a0` if the size of the return value is larger than 2×GRLEN bits.
 
-=== Stack
+=== The Stack
 
 . In general, the stack frame for a subroutine may contain space to contain the following:
 
