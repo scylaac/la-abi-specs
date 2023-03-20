@@ -1,0 +1,51 @@
+= ELF for the LoongArch®  Architecture
+Copyright © Loongson Technology 2023. All rights reserved.
+:doctype: article
+:toc: left
+:sectnums:
+
+== Preamble
+=== Abstract
+This document describes the Procedure Call Standard used by the Application
+Binary Interface (ABI) of the LoongArch Architecture.
+
+=== Keywords
+Procedure call, function call, calling conventions, data layout.
+
+=== Version History
+=== Release and defects report
+=== License
+=== About the license
+=== Contributions
+=== Trademark notice
+
+== Introduction
+=== About this specification
+This specification provides the processor-specific definitions required by
+ELF<<sco-elf>> for LoongArch-based systems.
+=== Terms and abbreviations
+
+== Platform Models
+
+== Object Files
+=== Introduction
+=== ELF Header
+=== Sections
+=== String Table
+=== Symbol Table
+=== Weak Symbols
+=== Relocations
+
+== Program Loading and Dynamic Linking
+=== Program Header
+=== Program Property
+=== Programing Loading
+=== Dynamic Linking
+==== Custom PLTs
+==== Dynamic Section
+
+[bibliography]
+== References
+
+* [[[sco-elf]]] __System V Application Binary Interface - DRAFT__,
+10 Jun. 2013, http://www.sco.com/developers/gabi/latest/contents.html
