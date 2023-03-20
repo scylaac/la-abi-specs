@@ -1,0 +1,62 @@
+= Procedure Call Standard for the LoongArch®  Architecture
+Copyright © Loongson Technology 2023. All rights reserved.
+
+:doctype: article
+:toc: left
+:sectnums:
+
+== Preamble
+=== Abstract
+This document describes the Procedure Call Standard used by the Application
+Binary Interface (ABI) of the LoongArch Architecture.
+
+=== Keywords
+Procedure call, function call, calling conventions, data layout.
+
+=== Version History
+=== Release and defects report
+=== License
+=== About the license
+=== Contributions
+=== Trademark notice
+
+== Introduction
+=== Scope
+=== Terms and abbreviations
+=== Design goals
+=== Conformance
+
+== Data types and alignment
+=== Fundamental Data Types
+=== Half-precision Floating Point
+=== Decimal Floating Point
+=== Short Vectors
+=== Pointers
+=== Byte order ("Endianness")
+=== Composite Types
+==== Aggregates
+==== Unions
+==== Arrays
+==== Bit-fields subdivision
+
+== The Base Procedure Call Standard
+
+=== Machine Registers
+==== General-purpose registers
+==== SIMD and Floating-Point registers
+
+=== Threads and processes
+
+=== Memory and the Stack
+
+==== Memory address
+==== Categories of memory
+==== The Stack
+==== The Frame Pointer
+
+=== Subroutine calls
+=== Parameter passing
+=== Result return
+=== Interworking between 32-bit and 64-bit procedures
+
+== LoongArch C and C++ language mappings
