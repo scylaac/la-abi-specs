@@ -1,5 +1,5 @@
 RENDER = asciidoctor
-src = lapcs.adoc laelf.adoc
+src = lapcs.adoc laelf.adoc ladwarf.adoc
 
 .PHONY: all clean
 all: $(patsubst %.adoc, %.html, $(src))
