@@ -373,7 +373,7 @@ If only one GAR is available, the low-order bits are in the GAR and the high-ord
 
 .. Both fixed-point and floating-point members.
 
-... The structure has one `double` member and only one fixed-point member.
+... The structure has one `float` or `double` member and only one fixed-point member.
 
 .... If one FAR and one GAR are available, the floating-point member of the structure is passed in the FAR, and the integer member of the structure is passed in the GAR; If no floating-point registers but two GARs are available, it’s passed in the two GARs; If only one GAR is available, the low-order bits are in the GAR and the high-order bits are on the stack; And it’s passed on the stack if no GAR is available.
 
