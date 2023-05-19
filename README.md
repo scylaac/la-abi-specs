@@ -1,7 +1,75 @@
-# 龙架构 ABI 规范
+# Application Binary Interface for the LoongArch®  Architecture
 
-本文档规范了龙架构 ABI 规范，目前包括：
+This is the official documentation of the Application Binary Interface
+for the LoongArch®  Architecture.
 
-- SystemV ELF psABI (<https://www.sco.com/developers/gabi/>)
-   + [英文稿](LoongArch-ELF-ABI-EN.adoc)
-   + [中文稿](LoongArch-ELF-ABI-CN.adoc)  
+## Releases
+
+The latest ABI releases are availale at **<TODO>**
+and are licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives
+4.0 International (CC BY-NC-ND 4.0) License.
+
+## Defect reports
+
+Please report defects in or enhancements to the specifications in this folder to
+the [issue tracker page on GitHub]() **<TODO>**.
+
+## List of documents
+
+specification                                            | latest
+---                                                      | ---
+Procedure Call Standard for the LoongArch® Architecture  | [lapcs](lapcs.adoc)
+ELF for the LoongArch® Architecture                      | [laelf](laelf.adoc)
+DWARF for the LoongArch® Architecture                    | [ladwarf](ladwarf.adoc)
+
+## License
+
+The ABI documents and their source files are currently licensed under the
+Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
+License. Contributions to these files are accepted under the same license.
+
+To view a copy of this license, visit http://creativecommons.org/licenses/by-nd/4.0/
+or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+## Revision History
+
+Legacy versions of the documents were released at the Github repository
+[LoongArch-Documentation](https://github.com/loongson/LoongArch-Documentation).
+This includes version 1.00, 2.00 and 2.01.
+
+All changes to the documents in a subsequent release should be declared in their
+change history section respectively. Timestamps in the form `YYYYMMDD` should be used
+for versioning of the individual documents in this folder, and a global version
+number which correspond to a combination of individual document versions will still
+be assigned to every new release of this collection.
+
+This global version number will continue to follow the legacy versioning scheme,
+where a change of the major version (currently 1 and 2) could potentially harm
+binary compatibility between objects conforming to these specifications, while a
+change to the two-digit minor version signifies other bugfixes and improvements.
+
+- **v1.00**
+
+    * Add register usage convention, data type conventions and the list of ELF relocation types.
+
+- **v2.00**
+
+    * Add description of ILP32 data model.
+    * Add description of return value register aliases.
+    * Add relocation types with direct immediate-filling semantics.
+    * Add ABI version porting guidelines for toolchain implementations.
+    * Add link to SysV gABI documentation.
+    * Adjust asciidoc code style.
+
+- **v2.01**
+
+    * Adjust description of ABI type encoding scheme.
+    * Add header for all tables.
+
+- **v2.10**
+
+    * Split the original psABI documentation (v2.01) into the `lapcs` and `laelf` documents.
+    * Add the *DWARF standard for the LoongArch® architecture* (`ladwarf`) document.
+    * Differentiate machine data types with the C/C++ types.
+    * Clarify parameter passing rules for C++ empty `struct`s and
+      small `struct`s that contain both floating-point and integer members.

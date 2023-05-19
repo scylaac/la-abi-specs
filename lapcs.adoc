@@ -5,38 +5,24 @@ Copyright © Loongson Technology 2023. All rights reserved.
 :toc: left
 :sectnums:
 
-== Preamble
-=== Abstract
+
+== Abstract
+
 This document describes the Procedure Call Standard used by the Application
 Binary Interface (ABI) of the LoongArch Architecture.
 
-=== Keywords
-Procedure call, function call, calling conventions, data layout.
+== Keywords
 
-=== Version History
+Procedure call, calling conventions, parameter passing, data layout.
 
-NOTE: todo
-//- **v3.00**
-//
-//    * Split from the original psABI documentation (v2.01).
-//    * Differentiate machine data types with the C/C++ types.
+== Version History
 
-=== Release and defects report
-NOTE: todo
+- **20230519**:
 
-=== License
-NOTE: todo
-
-=== About the license
-NOTE: todo
-
-=== Contributions
-NOTE: todo
-
-=== Trademark notice
-NOTE: todo
+    * initial version, derived from the original **LoongArch ELF psABI** document.
 
 == Introduction
+
 This document defines the constraints on the program contexts exchanged between
 the caller and called subroutines or a subroutine and the execution environment.
 The subroutines following these constraints can be compiled and assembled separately
@@ -52,7 +38,6 @@ That includes constraints on:
 However, this document does not formally define how standard programming language entities
 should be represented in the machine's program context, and the language binding should be
 described separately.
-//TODO: where?
 
 == Terms and abbreviations
 
@@ -72,7 +57,6 @@ __**FRLEN**__
 
 The bit-width of a floating-point register of the current LoongArch machine.
 
-NOTE: todo
 
 == Data types and alignment
 
@@ -104,29 +88,11 @@ information across subroutines in the memory or registers.
                       | 64-bit data pointer   | 8       | 8         |
 |===
 
-=== Byte order ("Endianness")
 The memory is byte-addressable for LoongArch machines, and the ordering of the bytes
 in machine-supported multi-byte data types are **little-endian**. That is, the least
 significant byte of a data object is at the lowest byte address the data object
 occupies in memory.
 
-=== Composite Types
-A composite type is a collection of one or more fundamental data types that are handled
-as a single entity at the procedure call level. A composite type can be any of:
-
-- An aggregate: where the member objects are laid out sequentially in memory
-(possibly with padding space between them).
-
-- A union: where each of the members starts from the same address.
-
-- An array: which is a repeated sequence of objects of the same other type.
-
-
-==== Aggregates
-==== Unions
-==== Arrays
-==== Bit-fields subdivision
-* Bit-fields are stored in little-endian.
 
 == The registers
 
@@ -533,15 +499,3 @@ The first argument passed on the stack is located at offset zero of the stack po
 
 * For all <<base-abi-type-marks, base ABI types>> of LoongArch,
 the `char` datatype is signed by default.
-
-//=== Memory and the Stack
-//==== Memory address
-//==== Categories of memory
-//==== The Stack
-//==== The Frame Pointer
-//
-//=== Subroutine calls
-//=== Parameter passing
-//=== Result return
-//=== Interworking between 32-bit and 64-bit procedures
-
