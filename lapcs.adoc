@@ -1,4 +1,4 @@
-= Procedure Call Standard for the LoongArch®  Architecture
+= Procedure Call Standard for the LoongArch™ Architecture
 Copyright © Loongson Technology 2023. All rights reserved.
 
 :doctype: article

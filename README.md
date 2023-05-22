@@ -1,7 +1,7 @@
-# Application Binary Interface for the LoongArch®  Architecture
+# Application Binary Interface for the LoongArch™ Architecture
 
 This is the official documentation of the Application Binary Interface
-for the LoongArch®  Architecture.
+for the LoongArch™ Architecture.
 
 ## Releases
 
@@ -18,9 +18,9 @@ the [issue tracker page on GitHub]() **<TODO>**.
 
 specification                                            | latest
 ---                                                      | ---
-Procedure Call Standard for the LoongArch® Architecture  | [lapcs](lapcs.adoc)
-ELF for the LoongArch® Architecture                      | [laelf](laelf.adoc)
-DWARF for the LoongArch® Architecture                    | [ladwarf](ladwarf.adoc)
+Procedure Call Standard for the LoongArch™ Architecture  | [lapcs](lapcs.adoc)
+ELF for the LoongArch™ Architecture                      | [laelf](laelf.adoc)
+DWARF for the LoongArch™ Architecture                    | [ladwarf](ladwarf.adoc)
 
 ## License
 
@@ -69,7 +69,7 @@ change to the two-digit minor version signifies other bugfixes and improvements.
 - **v2.10**
 
     * Split the original psABI documentation (v2.01) into the `lapcs` and `laelf` documents.
-    * Add the *DWARF standard for the LoongArch® architecture* (`ladwarf`) document.
+    * Add the *DWARF standard for the LoongArch™ architecture* (`ladwarf`) document.
     * Differentiate machine data types with the C/C++ types.
     * Clarify parameter passing rules for C++ empty `struct`s and
       small `struct`s that contain both floating-point and integer members.

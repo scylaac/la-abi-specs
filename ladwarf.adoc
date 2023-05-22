@@ -1,4 +1,4 @@
-= DWARF for the LoongArch®  Architecture
+= DWARF for the LoongArch™ Architecture
 Copyright © Loongson Technology 2023. All rights reserved.
 :doctype: article
 :toc: left

@@ -1,4 +1,4 @@
-= ELF for the LoongArch®  Architecture
+= ELF for the LoongArch™ Architecture
 Copyright © Loongson Technology 2023. All rights reserved.
 :doctype: article
 :toc: left
