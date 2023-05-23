@@ -11,7 +11,7 @@ in the Application Binary Interface (ABI) for the LoongArch architecture.
 
 == Keywords
 
-DWARF, LoongArch, stack frame, CFA, CIE
+LoongArch, DWARF, Stack frame, CFA, CIE
 
 == Version History
 

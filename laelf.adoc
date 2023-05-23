@@ -11,13 +11,13 @@ Binary Interface (ABI) of the LoongArch Architecture.
 
 == Keywords
 
-ELF, ABI, SysV psABI, SysV gABI, LoongArch
+LoongArch, ELF, ABI, SysV gABI, ELF header, Relocations
 
 == Version History
 
 - **20230519**:
 
-    * initial version, derived from the original **LoongArch ELF psABI** document.
+    * initial version, derived from the original __LoongArch ELF psABI__ document.
 
 == Introduction
 
@@ -45,10 +45,9 @@ An object file conforming to this specification must have the value `EM_LOONGARC
 The ABI type of an ELF object is uniquely identified by `EI_CLASS` and `e_flags[7:0]` in its header.
 
 Within this combination, `EI_CLASS` and `e_flags[2:0]` correspond to the **base ABI** type,
-where the expression of C integral and pointer types (<<c-lang-data-model, data model>>)
-is uniquely determined by `EI_CLASS` value, and `e_flags[2:0]` represents additional properties
-of the base ABI type, including the FP calling convention.  We refer to `e_flags[2:0]` as
-the **base ABI modifier**.
+where the expression of C integral and pointer types (data model) is uniquely determined by
+`EI_CLASS` value, and `e_flags[2:0]` represents additional properties of the base ABI type,
+including the FP calling convention.  We refer to `e_flags[2:0]` as the **base ABI modifier**.
 
 As a result, programs in `lp64*` / `ilp32*` ABI should only be encoded with ELF64 / ELF32
 object files, respectively.
@@ -65,27 +64,27 @@ object files, respectively.
 
 |lp64s | ELFCLASS64 | 0x1
 |Uses 64-bit GPRs and the stack for parameter passing.
-Data model is <<dm-lp64, LP64>>, where `long` and pointers are 64-bit while `int` is 32-bit.
+Data model is `LP64`, where `long` and pointers are 64-bit while `int` is 32-bit.
 
 |lp64f | ELFCLASS64 | 0x2
 |Uses 64-bit GPRs, 32-bit FPRs and the stack for parameter passing.
-Data model is <<dm-lp64, LP64>>, where `long` and pointers are 64-bit while `int` is 32-bit.
+Data model is `LP64`, where `long` and pointers are 64-bit while `int` is 32-bit.
 
 |lp64d | ELFCLASS64 | 0x3
 |Uses 64-bit GPRs, 64-bit FPRs and the stack for parameter passing.
-Data model is <<dm-lp64, LP64>>, where `long` and pointers are 64-bit while `int` is 32-bit.
+Data model is `LP64`, where `long` and pointers are 64-bit while `int` is 32-bit.
 
 |ilp32s | ELFCLASS32 | 0x1
 |Uses 32-bit GPRs and the stack for parameter passing.
-Data model is <<dm-ilp32, ILP32>>, where `int`, `long` and pointers are 32-bit.
+Data model is `ILP32`, where `int`, `long` and pointers are 32-bit.
 
 |ilp32f | ELFCLASS32 | 0x2
 |Uses 32-bit GPRs, 32-bit FPRs and the stack for parameter passing.
-Data model is <<dm-ilp32, ILP32>>, where `int`, `long` and pointers are 32-bit.
+Data model is `ILP32`, where `int`, `long` and pointers are 32-bit.
 
 |ilp32d | ELFCLASS32 | 0x3
 |Uses 32-bit GPRs, 64-bit FPRs and the stack for parameter passing.
-Data model is <<dm-ilp32, ILP32>>, where `int`, `long` and pointers are 32-bit.
+Data model is `ILP32`, where `int`, `long` and pointers are 32-bit.
 |===
 
 `e_flags[5:3]` correspond to the ABI extension type.

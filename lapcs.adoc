@@ -13,13 +13,13 @@ Binary Interface (ABI) of the LoongArch Architecture.
 
 == Keywords
 
-Procedure call, calling conventions, parameter passing, data layout.
+LoongArch, Procedure call, Calling conventions, Argument, Return value, Data layout
 
 == Version History
 
 - **20230519**:
 
-    * initial version, derived from the original **LoongArch ELF psABI** document.
+    * initial version, derived from the original __LoongArch ELF psABI__ document.
 
 == Introduction
 
@@ -222,27 +222,27 @@ values in the registers as much as possible.
 |Description
 
 |lp64s
-|Uses 64-bit GPRs and the stack for parameter passing.
+|Uses 64-bit GPRs and the stack for passing arguments and return values.
 Data model is <<dm-lp64, LP64>> for programming languages.
 
 |lp64f
-|Uses 64-bit GPRs, 32-bit FPRs and the stack for parameter passing.
+|Uses 64-bit GPRs, 32-bit FPRs and the stack for passing arguments and return values.
 Data model is <<dm-lp64, LP64>> for programming languages.
 
 |lp64d
-|Uses 64-bit GPRs, 64-bit FPRs and the stack for parameter passing.
+|Uses 64-bit GPRs, 64-bit FPRs and the stack for passing arguments and return values.
 Data model is <<dm-lp64, LP64>> for programming languages.
 
 |ilp32s
-|Uses 32-bit GPRs and the stack for parameter passing.
+|Uses 32-bit GPRs and the stack for passing arguments and return values.
 Data model is <<dm-ilp32, ILP32>> for programming languages.
 
 |ilp32f
-|Uses 32-bit GPRs, 32-bit FPRs and the stack for parameter passing.
+|Uses 32-bit GPRs, 32-bit FPRs and the stack for passing arguments and return values.
 Data model is <<dm-ilp32, ILP32>> for programming languages.
 
 |ilp32d
-|Uses 32-bit GPRs, 64-bit FPRs and the stack for parameter passing.
+|Uses 32-bit GPRs, 64-bit FPRs and the stack for passing arguments and return values.
 Data model is <<dm-ilp32, ILP32>> for programming languages.
 |===
 
