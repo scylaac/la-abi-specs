@@ -25,17 +25,18 @@ DWARF for the LoongArch™ Architecture                    | [ladwarf](ladwarf.a
 ## License
 
 The ABI documents and their source files are currently licensed under the
-Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
-License. Contributions to these files are accepted under the same license.
+Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International
+(CC BY-NC-ND 4.0) License. Contributions to these files are accepted under
+the same license.
 
-To view a copy of this license, visit http://creativecommons.org/licenses/by-nd/4.0/
+To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/
 or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 ## Revision History
 
 Legacy versions of the documents were released at the Github repository
 [LoongArch-Documentation](https://github.com/loongson/LoongArch-Documentation).
-This includes version 1.00, 2.00 and 2.01.
+These include version 1.00, 2.00 and 2.01.
 
 All changes to the documents in a subsequent release should be declared in their
 change history section respectively. Timestamps in the form `YYYYMMDD` should be used
@@ -44,9 +45,13 @@ number which correspond to a combination of individual document versions will st
 be assigned to every new release of this collection.
 
 This global version number will continue to follow the legacy versioning scheme,
-where a change of the major version (currently 1 and 2) could potentially harm
+where a change of the major version (currently 1 and 2) could potentially degrade
 binary compatibility between objects conforming to these specifications, while a
 change to the two-digit minor version signifies other bugfixes and improvements.
+
+Please note that we do not expect the major version to change at any time in the
+forseeable future, and the minor version may increase by more than 1 in a new public
+release for project management purposes.
 
 - **v1.00**
 
