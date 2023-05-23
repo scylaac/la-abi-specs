@@ -21,8 +21,8 @@ LoongArch, DWARF, Stack frame, CFA, CIE
 
 == Overview
 
-The DWARF debugging format for LoongArch use _DWARF Standard_ <<dwarfstd>>.
-this specification only describes LoongArch-specific definitions.
+The DWARF debugging format for LoongArch uses _DWARF Standard_ <<dwarfstd>>.
+This specification only describes LoongArch-specific definitions.
 
 == LoongArch-specific DWARF definitions
 
@@ -49,7 +49,7 @@ registers.
 
 === CFA (Canonical Frame Address)
 
-The term `Canonical Frame Address (CFA)` is defined in _DWARF Debugging Information Format Version 5_ <<DWARF5>>, `§6.4 Call Frame Information`
+The term Canonical Frame Address (CFA) is defined in _DWARF Debugging Information Format Version 5_ <<dwarf5>>, §6.4 Call Frame Information.
 
 This ABI adopts the typical definition of `CFA` given there:
 
@@ -73,10 +73,10 @@ The position of `CFA` in frame structure of LoongArch is shown below:
 === CIE (Common Information Entry)
 
 The `$r1` register is used to store the return address of the function, 
-the value of the return address register field in `CIE` structure is `1`. 
+and the value of the return address register field in `CIE` structure is `1`. 
 
-The default `CFA` register at the function entry is `$r3`, initial_instructions
-field in `CIE` structure can defines `3` as the default `CFA` register.
+The default `CFA` register at the function entry is `$r3`, and initial_instructions
+field in `CIE` structure can define `3` as the default `CFA` register.
 
 === Call frame instructions
 
@@ -91,10 +91,10 @@ Using the existing definitions in DWARF Standard.
 [bibliography]
 == References
 
-* [[[dwarfstd]]] "DWARF Standard"
+* [[[dwarfstd]]] DWARF Standard,
 https://dwarfstd.org/
 
-* [[[DWARF5]]] "DWARF Debugging Information Format Version 5"
+* [[[dwarf5]]] DWARF Debugging Information Format Version 5,
 https://dwarfstd.org/doc/DWARF5.pdf
 
 
