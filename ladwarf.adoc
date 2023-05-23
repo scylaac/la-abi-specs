@@ -1,35 +1,23 @@
-= DWARF Standard for the LoongArch®  Architecture
+= DWARF for the LoongArch™ Architecture
 Copyright © Loongson Technology 2023. All rights reserved.
 :doctype: article
 :toc: left
 :sectnums:
 
-== Preamble
-=== Abstract
+== Abstract
 
-This document describes the use of the DWARF debug format in the Application
-Binary Interface (ABI) for the LoongArch architecture
+This document describes the use of the DWARF debugging information format
+in the Application Binary Interface (ABI) for the LoongArch architecture.
 
-=== Keywords
-DWARF,LoongArch,use of DWARF format...
+== Keywords
 
-=== Version History
-NOTE: todo
+DWARF, LoongArch, stack frame, CFA, CIE
 
-=== Release and defects report
-NOTE: todo
+== Version History
 
-=== License
-NOTE: todo
+- **20230425**:
 
-=== About the license
-NOTE: todo
-
-=== Contributions
-NOTE: todo
-
-=== Trademark notice
-NOTE: todo
+    * initial version
 
 == Overview
 

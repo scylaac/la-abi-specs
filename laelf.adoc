@@ -1,44 +1,39 @@
-= ELF for the LoongArch®  Architecture
+= ELF for the LoongArch™ Architecture
 Copyright © Loongson Technology 2023. All rights reserved.
 :doctype: article
 :toc: left
 :sectnums:
 
-== Preamble
-=== Abstract
+== Abstract
+
 This document describes the use of the ELF binary file format in the Application
 Binary Interface (ABI) of the LoongArch Architecture.
 
-=== Keywords
-ELF...
+== Keywords
 
-=== Version History
-=== Release and defects report
-=== License
-=== About the license
-=== Contributions
-=== Trademark notice
+ELF, ABI, SysV psABI, SysV gABI, LoongArch
+
+== Version History
+
+- **20230519**:
+
+    * initial version, derived from the original **LoongArch ELF psABI** document.
 
 == Introduction
-=== About this specification
+
 This specification provides the processor-specific definitions required by
-ELF <<sco-elf>> for LoongArch-based systems.
-=== Terms and abbreviations
-
-== Platform Models
-
-== Object Files
+ELF for LoongArch-based systems.
 
 All common ELF definitions referenced in this section
 can be found in http://sco.com/developers/gabi/latest/contents.html[the latest SysV gABI specification].
 
-=== Introduction
-=== ELF Header
-==== e_machine: Identifies the machine
+
+== ELF Header
+=== e_machine: Identifies the machine
 
 An object file conforming to this specification must have the value `EM_LOONGARCH (258, 0x102)`.
 
-==== e_flags: Identifies ABI type and version
+=== e_flags: Identifies ABI type and version
 
 .ABI-related bits in `e_flags`
 [%header,cols="1,1,1,1"]
@@ -134,8 +129,7 @@ Data model is <<dm-ilp32, ILP32>>, where `int`, `long` and pointers are 32-bit.
 |Reserved.
 |===
 
-=== ELF Identification
-==== EI_CLASS: File class
+=== EI_CLASS: File class
 
 .ELF file classes
 [%header,cols="2m,^1m,^3"]
@@ -153,13 +147,7 @@ Data model is <<dm-ilp32, ILP32>>, where `int`, `long` and pointers are 32-bit.
 |ELF64 object file
 |===
 
-=== Sections
-=== String Table
-=== Symbol Table
-=== Weak Symbols
-=== Relocations
-
-NOTE: AArch64对此节进行详细的分类，如Relocation codes、Relocation types...
+== Relocations
 
 .ELF Relocation types
 [%header,cols="^1,^2m,^5,5"]
@@ -653,16 +641,8 @@ with check 28-bit signed overflow and 4-bit aligned
 |
 |===
 
-== Program Loading and Dynamic Linking
-=== Program Header
-=== Program Property
-=== Programing Loading
-=== Dynamic Linking
-==== Custom PLTs
-==== Dynamic Section
-
 [bibliography]
 == References
 
-* [[[sco-elf]]] __System V Application Binary Interface - DRAFT__,
+* [[[SysVelf]]] __System V Application Binary Interface - DRAFT__,
 10 Jun. 2013, http://www.sco.com/developers/gabi/latest/contents.html
