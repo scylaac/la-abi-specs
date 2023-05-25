@@ -303,6 +303,8 @@ And the layout of the structure on the stack is consistent with that in memory.
 
 C++ compilers do not ignore empty `struct` (same as `class` and `union`) and an argument of this type shall be treated as if its type were a structure with a single member of type `char`.
 
+Zero-length arrays and zero-length bitfields in structures are ignored by both C and C++ compilers.
+
 . 0 < WOA ≤ GRLEN
 
 .. The structure has only fixed-point members.
