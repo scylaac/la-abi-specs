@@ -29,7 +29,7 @@ This specification only describes LoongArch-specific definitions.
 === DWARF Register Numbers
 
 DWARF Standard suggests that the mapping from a DWARF register name to a
-target register number should be defined by the ABI for the target architecture. 
+target register number should be defined by the ABI for the target architecture.
 DWARF register names are encoded as unsigned LEB128 integers.
 
 The table below lists the mapping from DWARF register numbers to LoongArch64
@@ -41,8 +41,8 @@ registers.
 |===
 | DWARF Register Number | LoongArch64 Register Name | Description
 
-| 0 -  31               | `$r0` - `$r31`            | General-purpose Register 
-| 32 - 63               | `$f0` - `$f31`            | Floating-point Register     
+| 0 -  31               | `$r0` - `$r31`            | General-purpose Register
+| 32 - 63               | `$f0` - `$f31`            | Floating-point Register
 | 64 -                  |                           | Reserved for future standard extensions
 |===
 
@@ -63,7 +63,7 @@ The position of `CFA` in frame structure of LoongArch is shown below:
            |________________|
   CFA----->|________________|<------ previous sp
            |_______ra_______|
-           |_______fp_______|      
+           |_______fp_______|
            |                |
            | current frame  |
            |________________|
@@ -72,8 +72,8 @@ The position of `CFA` in frame structure of LoongArch is shown below:
 
 === CIE (Common Information Entry)
 
-The `$r1` register is used to store the return address of the function, 
-and the value of the return address register field in `CIE` structure is `1`. 
+The `$r1` register is used to store the return address of the function,
+and the value of the return address register field in `CIE` structure is `1`.
 
 The default `CFA` register at the function entry is `$r3`, and initial_instructions
 field in `CIE` structure can define `3` as the default `CFA` register.
