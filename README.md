@@ -22,6 +22,10 @@ Procedure Call Standard for the LoongArch™ Architecture  | [lapcs](lapcs.adoc)
 ELF for the LoongArch™ Architecture                      | [laelf](laelf.adoc)
 DWARF for the LoongArch™ Architecture                    | [ladwarf](ladwarf.adoc)
 
+## Contributing
+
+Please refer to the contribution guidelines in [CONTRIBUTING](CONTRIBUTING.adoc).
+
 ## License
 
 The ABI documents and their source files are currently licensed under the
