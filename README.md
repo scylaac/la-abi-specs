@@ -5,14 +5,15 @@ for the LoongArch™ Architecture.
 
 ## Releases
 
-The latest ABI releases are availale at **<TODO>**
-and are licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives
-4.0 International (CC BY-NC-ND 4.0) License.
+The latest ABI documentation releases are availale at
+https://github.com/loongson/la-abi-specs and are licensed under the Creative
+Commons Attribution-NonCommercial-NoDerivatives 4.0 International
+(CC BY-NC-ND 4.0) License.
 
 ## Defect reports
 
 Please report defects in or enhancements to the specifications in this folder to
-the [issue tracker page on GitHub]() **<TODO>**.
+the [issue tracker page on GitHub](https://github.com/loongson/la-abi-specs/issues).
 
 ## List of documents
 
