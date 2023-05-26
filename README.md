@@ -81,3 +81,4 @@ release for project management purposes.
     * Add the *DWARF standard for the LoongArch™ architecture* (`ladwarf`) document.
     * Differentiate machine data types with the C/C++ types.
     * Clarify parameter passing rules for small `struct`s that contain both floating-point and integer members.
+    * Clarify parameter passing rules for `struct`s that contain zero-length arrays or bitfields.
