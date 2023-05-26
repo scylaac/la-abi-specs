@@ -76,5 +76,4 @@ release for project management purposes.
     * Split the original psABI documentation (v2.01) into the `lapcs` and `laelf` documents.
     * Add the *DWARF standard for the LoongArch™ architecture* (`ladwarf`) document.
     * Differentiate machine data types with the C/C++ types.
-    * Clarify parameter passing rules for C++ empty `struct`s and
-      small `struct`s that contain both floating-point and integer members.
+    * Clarify parameter passing rules for small `struct`s that contain both floating-point and integer members.
