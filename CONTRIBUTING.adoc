@@ -28,7 +28,7 @@ Follow https://docs.github.com/en/pull-requests[Github pull requests documentati
 === Review of pull request
 
 Pull requests need to be reviewed before they can be merged. Anyone can review
-the requests, but approval from at least one Loongson reviewer is required. 
+the requests, but approval from at least one Loongson reviewer is required.
 
 === Merging the change
 
