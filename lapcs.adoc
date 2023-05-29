@@ -286,7 +286,7 @@ There are two cases:
 .. Argument is passed in a single argument register, or on the stack by value if none is available.
 
 ... If the argument is floating-point type, the argument is passed in FAR.
-if no FAR is available, it’s passed in GAR. If no GAR is available, it’s passed on the stack.
+If no FAR is available, it’s passed in GAR. If no GAR is available, it’s passed on the stack.
 When passed in registers or on the stack, floating-point types narrower than GRLEN bits are widened to GRLEN bits, with the upper bits undefined.
 
 ... If the argument is integer or pointer type, the argument is passed in GAR.
@@ -394,7 +394,7 @@ Variadic arguments are passed in GARs in the same manner as named arguments. And
 
 . GRLEN < WOA ≤ 2 × GRLEN
 
-.. The variadic arguments are passed in a pair of GARs. If only one GAR is available, the low-order bits are in the GAR and the high-order bits are on the stack, and passed on the stack if no GAR is available. or on the stack by value if none is available. It should be noted that `long double` data tpye is passed in an aligned GAR pair(the first register in the pair is even-numbered).
+.. The variadic arguments are passed in a pair of GARs. If only one GAR is available, the low-order bits are in the GAR and the high-order bits are on the stack, and passed on the stack if no GAR is available, or on the stack by value if none is available. It should be noted that `long double` data tpye is passed in an aligned GAR pair(the first register in the pair is even-numbered).
 
 . WOA > 2 × GRLEN
 
