@@ -44,10 +44,16 @@ described separately.
 == Terms and abbreviations
 
 **GPR** +
-General-purpose registers.
+General-purpose register.
 
 **FPR** +
-Floating-point registers.
+Floating-point register.
+
+**GAR** +
+General-purpose argument register, belonging to a fixed subset of GPRs.
+
+**FAR** +
+Floating-point argument register, belonging to a fixed subset of FPRs.
 
 **GRLEN** +
 The bit-width of a general-purpose register of the current LoongArch machine.
@@ -254,11 +260,11 @@ the stack only when no appropriate register is available.
 
 The argument registers are:
 
-* 8 floating-point registers `fa0-fa7` for passing pass floating-point
-arguments, where `fa0-fa1` are also used for returning FP values.
-
-* 8 general-purpose registers `a0-a7` for passing pass integral arguments,
+* **GARs**: 8 general-purpose registers `a0-a7` for passing pass integral arguments,
 where `a0-a1` are also used for returning integral values.
+
+* **FARs**: 8 floating-point registers `fa0-fa7` for passing pass floating-point
+arguments, where `fa0-fa1` are also used for returning FP values.
 
 Generally speaking, FARs are only used to pass floating-point arguments,
 GARs are used to pass non floating-point arguments and floating-point arguments
