@@ -1,6 +1,5 @@
 = Procedure Call Standard for the LoongArch™ Architecture
-Version 20230519
-
+Version 20230519 +
 Copyright © Loongson Technology 2023. All rights reserved.
 
 == Abstract
@@ -14,9 +13,15 @@ LoongArch, Procedure call, Calling conventions, Argument, Return value, Data lay
 
 == Version History
 
-- **20230519**:
+[%header,cols="^2,8"]
+|====
+|Version
+^|Description
 
-    * initial version, derived from the original __LoongArch ELF psABI__ document.
+|20230519
+|initial version, derived from the original __LoongArch ELF psABI__ document.
+|====
+
 
 == Introduction
 
@@ -38,20 +43,16 @@ described separately.
 
 == Terms and abbreviations
 
-**GPR**
-
+**GPR** +
 General-purpose registers.
 
-**FPR**
-
+**FPR** +
 Floating-point registers.
 
-**GRLEN**
-
+**GRLEN** +
 The bit-width of a general-purpose register of the current LoongArch machine.
 
-**FRLEN**
-
+**FRLEN** +
 The bit-width of a floating-point register of the current LoongArch machine.
 
 
@@ -61,11 +62,11 @@ The following machine-supported data types are the basic building blocks for pas
 information across subroutines in the memory or registers.
 
 .Byte size and byte alignment of machine-supported data types
-[%header,cols="1,1,1,1,1"]
+[%header,cols="^1,^2,^2,^3,^2"]
 |===
-|Type class
+|Class
 |Machine type
-|Byte size
+|Size (bytes)
 |Natural alignment (bytes)
 |Note
 
@@ -116,7 +117,7 @@ referring to caller-saved registers and "static registers" for callee-saved regi
 === General-purpose registers
 
 .General-purpose Register Convention
-[%header,cols="2,2,^5,^3"]
+[%header,cols="^2,^2,^5,^3"]
 |===
 |Name
 |Alias
@@ -177,7 +178,7 @@ referring to caller-saved registers and "static registers" for callee-saved regi
 === Floating-Point registers
 
 .Floating-point Register Convention
-[%header,cols="2,2,^5,^3"]
+[%header,cols="^2,^2,^5,^3"]
 |===
 |Name
 |Alias
@@ -213,10 +214,10 @@ values in the registers as much as possible.
 
 [[base-abi-types]]
 .Base ABI Types
-[%header,cols="2m,^3"]
+[%header,cols="^1m,5"]
 |===
 |Name
-|Description
+^|Description
 
 |lp64s
 |Uses 64-bit GPRs and the stack for passing arguments and return values.

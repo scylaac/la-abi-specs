@@ -1,6 +1,5 @@
 = DWARF for the LoongArch™ Architecture
-Version 20230425
-
+Version 20230425 +
 Copyright © Loongson Technology 2023. All rights reserved.
 
 == Abstract
@@ -14,14 +13,24 @@ LoongArch, DWARF, Stack frame, CFA, CIE
 
 == Version History
 
-- **20230425**:
+[%header,cols="^2,8"]
+|====
+|Version
+^|Description
 
-    * initial version
+|20230425
+|initial version.
+|====
 
 == Overview
 
 The DWARF debugging format for LoongArch uses _DWARF Standard_ <<dwarfstd>>.
 This specification only describes LoongArch-specific definitions.
+
+== Terms and abbreviations
+
+**DWARF** +
+Debugging With Attributed Record Formats.
 
 == LoongArch-specific DWARF definitions
 
@@ -35,7 +44,7 @@ The table below lists the mapping from DWARF register numbers to LoongArch64
 registers.
 
 .Mapping from DWARF register numbers to LoongArch64 registers
-[%header,cols="2,2,^4"]
+[%header,cols="^1,^1,^2"]
 [width=80%]
 |===
 | DWARF Register Number | LoongArch64 Register Name | Description
