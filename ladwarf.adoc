@@ -1,8 +1,7 @@
 = DWARF for the LoongArch™ Architecture
+Version 20230425
+
 Copyright © Loongson Technology 2023. All rights reserved.
-:doctype: article
-:toc: left
-:sectnums:
 
 == Abstract
 

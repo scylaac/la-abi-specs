@@ -1,9 +1,7 @@
 = Procedure Call Standard for the LoongArch™ Architecture
-Copyright © Loongson Technology 2023. All rights reserved.
-:doctype: article
-:toc: left
-:sectnums:
+Version 20230519
 
+Copyright © Loongson Technology 2023. All rights reserved.
 
 == Abstract
 
@@ -40,19 +38,19 @@ described separately.
 
 == Terms and abbreviations
 
-__**GPR**__
+**GPR**
 
 General-purpose registers.
 
-__**FPR**__
+**FPR**
 
 Floating-point registers.
 
-__**GRLEN**__
+**GRLEN**
 
 The bit-width of a general-purpose register of the current LoongArch machine.
 
-__**FRLEN**__
+**FRLEN**
 
 The bit-width of a floating-point register of the current LoongArch machine.
 
@@ -108,7 +106,7 @@ integer data types are sign-extended when passed in the general-purpose register
 as subroutine arguments and return values.
 
 One exception to above rule is that in *LP64D* ABI, unsigned words,
-such as those representing `*unsigned int*` in <<C, C-data-types>>,
+such as those representing `*unsigned int*` in <<C-data-types, C>>,
 are stored in general-purpose registers as proper sign extensions of
 their 32-bit values.
 
@@ -496,5 +494,5 @@ The first argument passed on the stack is located at offset zero of the stack po
 |Double precision
 |===
 
-* For all <<base-abi-type-marks, base ABI types>> of LoongArch,
+* For all base ABI types of LoongArch,
 the `char` datatype is signed by default.
