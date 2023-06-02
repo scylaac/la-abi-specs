@@ -5,7 +5,7 @@ for the LoongArch™ Architecture.
 
 ## Releases
 
-The latest ABI documentation releases are availale at
+The latest ABI documentation releases are available at
 https://github.com/loongson/la-abi-specs and are licensed under the Creative
 Commons Attribution-NonCommercial-NoDerivatives 4.0 International
 (CC BY-NC-ND 4.0) License.
@@ -83,3 +83,9 @@ release for project management purposes.
     * Differentiate machine data types with the C/C++ types.
     * Clarify parameter passing rules for small `struct`s that contain both floating-point and integer members.
     * Clarify parameter passing rules for `struct`s that contain zero-length arrays or bitfields.
+
+## I18n
+
+This specification is written in both English and Chinese. In the event of any
+inconsistency between the same document version in two languages, the Chinese
+version shall prevail.

@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 page:
   layout: portrait
-  margin: [10mm, 15mm, 15mm, 15mm]
+  margin: [10mm, 15mm, 18mm, 15mm]
   size: a4
 
 base:
@@ -11,22 +11,21 @@ base:
   font_family: Noto Serif
   font_style: normal
   font_size: 10
-  line_height_length: 11
-  line_height: $base_line_height_length / $base_font_size
-
-vertical_spacing: $base_line_height_length
+  line_height: 1.1
+  vertical_spacing: $base_line_height_length
 
 heading:
   font_color: #d71520
   font_family: Merriweather
   h1_font_family: CMU Serif
-  h1_font_size: floor($base_font_size * 1.8)
+  h1_font_size: floor($base_font_size * 1.7)
   h2_font_size: floor($base_font_size * 1.3)
   h3_font_size: round($base_font_size * 1.1)
+  h4_font_size: round($base_font_size * 1.0)
   font_style: bold
   line_height: 1
   margin_bottom: $vertical_spacing / 1.5
-  margin_top: $vertical_spacing / 1.2
+  margin_top: $vertical_spacing / 1.5
 
 code:
   font_color: #333333
@@ -38,6 +37,7 @@ code:
 #  border_color: #0f80aa
   border_color: #333333
   border_radius: 2
+  line_height: 1.1
 
 #caption:
 #  font_family: CMU Serif
@@ -45,7 +45,6 @@ code:
 #  font_size: 10
 
 literal:
-#  font_family: Courier Prime Sans
   font_family: CMU Typewriter
   font_color: $heading_font_color
   font_style: normal
