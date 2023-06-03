@@ -1,4 +1,4 @@
-SRC = CONTRIBUTING.adoc lapcs.adoc laelf.adoc ladwarf.adoc
+SRC = lapcs.adoc laelf.adoc ladwarf.adoc
 PDF = la-abi.pdf
 
 PDF_THEME = themes/la-abi-pdf.yml
