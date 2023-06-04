@@ -178,14 +178,14 @@ referring to caller-saved registers and "static registers" for callee-saved regi
 === The memory and the byte order
 
 The memory is byte-addressable for LoongArch machines, and the ordering of the bytes
-in machine-supported multi-byte data types are *little-endian*. That is, the least
+in machine-supported multi-byte data types is *little-endian*. That is, the least
 significant byte of a data object is at the lowest byte address the data object
 occupies in memory.
 
 The least significant byte of a 32-bit GPR / 64-bit GPR / 32-bit FPR / 64-bit GPR
 is defined as storing the lowest byte of the data loaded from the memory with one
 `ld.w` / `ld.d` / `fld.s` / `fld.d` instruction. This byte order is also respected
-by other instructions that move typed data across registers such as `movgr2fr`.
+by other instructions that move typed data across registers such as `movgr2fr.d`.
 
 In this document, when referring to a data object (of any type) stored in a register,
 it is assumed that these objects begin with the least significant byte of the register
@@ -230,7 +230,7 @@ Data model is <<dm-ilp32, ILP32>> for programming languages.
 |===
 
 Different ABI variants are not expected to be compatible and linking objects in these
-variants may resuit in linker errors or run-time failures.
+variants may result in linker errors or run-time failures.
 
 == Data representation
 
@@ -258,14 +258,18 @@ within the program context when passed as arguments and return values of procedu
                       | Unsigned double-word  | 8       | 8         |
                       | Signed double-word    | 8       | 8         |
 
+.2+| Pointer          | 32-bit data pointer   | 4       | 4         |
+                      | 64-bit data pointer   | 8       | 8         |
+
 .3+| Floating Point   | Single precision (fp32) | 4       | 4         .3+| IEEE 754-2008
                       | Double precision (fp64) | 8       | 8
                       | Quad-precision (fp128)  | 16      | 16
-
-.2+| Pointer          | 32-bit data pointer   | 4       | 4         |
-                      | 64-bit data pointer   | 8       | 8         |
 |===
 
+NOTE: In the following text, the term "integral object" or
+"integral type" also covers the pointers.
+
+[[int_ext_rules]]
 When passed in registers as subroutine arguments or return values,
 the unsigned integral objects are zero-extended, and the signed
 integer data types are sign-extended if the containing register
@@ -302,7 +306,7 @@ a declared integral type with a specified bit-width. The specified bit-width
 of a bit-field may not be greater than the width of its declared type.
 
 A bit-field must be contained in a block of memory that is appropriate to
-store its declared type, but it can share an addressible byte with
+store its declared type, but it can share an addressable byte with
 other members of the struct or union.
 
 When determining the alignment and size of the structure or the union,
@@ -338,21 +342,21 @@ memory access and/or cache usage can be reduced to improve program performance.
 The registers that can be used for passing arguments and returning values are
 the *argument registers*, which include:
 
-* *GARs*: 8 general-purpose registers `$a0` - `$a7` for passing integral arguments,
-where `$a0` and `$a1` are also used for returning integral values.
+* *GARs*: 8 general-purpose registers `$a0` - `$a7`, where `$a0` and `$a1` are
+also used for integral values.
 
-* *FARs*: 8 floating-point registers `$fa0` - `$fa7` for passing floating-point
-arguments, where `$fa0` and `$fa1` are also used for returning FP values.
+* *FARs*: 8 floating-point registers `$fa0` - `$fa7`, where `$fa0` and `$fa1`
+are also used for returning values.
 
 An argument is passed using the stack only when no appropriate argument register
 is available.
 
-Subroutines should ensure that the initial values of general-purpose registers
+Subroutines should ensure that the initial values of the general-purpose registers
 `$s0` - `$s9` and floating-point registers `$fs0` - `$fs7` are preserved across
 the call.
 
 At the entry of a procedure call, the return address of the call site is stored
-in `$ra`, a branch jump to this address should be the last instruction executed
+in `$ra`. A branch jump to this address should be the last instruction executed
 in the called procedure.
 
 === The Stack Layout
@@ -426,8 +430,8 @@ returned in a pair of GARs if the GARs are 64-bit wide, otherwise it would be
 passed or returned on the stack.
 
 NOTE: Currently, the following detailed description of parameter passing rules
-is only guaranteed to cover the `lp64d` variant, that is, `GRLEN == 64` and
-`FRLEN == 64`.
+is only guaranteed to cover the `lp64d` and `lp64s` variant, that is, `GRLEN` is
+`64` and `FRLEN` is `64` or `0`.
 
 NOTE: In the following text, w~arg~ is used for denoting the size of the
 argument object in bits.
@@ -446,10 +450,10 @@ Otherwise, it is passed in a GAR, or on the stack if none of the GARs are
 available. When passed in registers or on the stack, fp32 / fp64 arguments
 narrower than GRLEN bits are widened to GRLEN bits, with the upper bits undefined.
 
-* An integral or pointer argument is passed in a GAR if there is one available.
-Otherwise, it is passed on the stack. In both cases, unsigned integer arguments
-narrower than GRLEN bits are always zero-extended to GRLEN bits, and the
-signed integer arguments are sign-extended.
+* An integral argument is passed in a GAR if there is one available.
+Otherwise, it is passed on the stack. If the argument is narrower than the
+containing GAR, the <<int_ext_rules, general rules of integral extensions>>
+applies.
 
 *GRLEN < w~arg~ ≤ 2 × GRLEN*
 
@@ -467,6 +471,9 @@ available, the whole argument is passed on the stack.
 
 The storage location of structures during argument passing is also determined
 by w~arg~ and GRLEN:
+
+NOTE: Zero-length array members in structures should be ignored by both C and
+C++ compilers.
 
 *w~arg~ > 2 × GRLEN*
 
@@ -493,7 +500,7 @@ this register, otherwise it is passed on the stack.
 
 *GRLEN < w~arg~ ≤ 2 × GRLEN*
 
-* If the strcture contains only two fp64 members, or an fp64 member and
+* If the structure contains only two fp64 members, or an fp64 member and
 an fp32 member, they are passed in a pair of adjacent FARs. If the FAR pair
 is not available, the structure is passed in a pair of GARs. In both cases,
 the first member is stored in the lower-numbered register. If only one GAR
@@ -514,9 +521,9 @@ passed on the stack. If no GAR is available, the structure is passed on
 the stack.
 
 * If the structure has only one fp32 / fp64 member and one integral
-or pointer member, the floating-point member of the structure is passed in
-the FAR, and the integral / pointer member is passed in the GAR. If no FAR
-is availble, the members will be passed in two adjacent GARs separately.
+member, the floating-point member of the structure is passed in
+the FAR, and the integral member is passed in the GAR. If no FAR
+is available, the members will be passed in two adjacent GARs separately.
 If only one GAR is available, then the first member is passed in the GAR
 and the second one is passed in on the stack. If neither a GAR nor an FAR
 is available, all of the structure is passed on the stack.
@@ -524,7 +531,7 @@ is available, all of the structure is passed on the stack.
 * Otherwise, the structure is passed in a pair of available GARs, with
 the least significant bits stored in the lower-numbered register. If only
 one GAR is available, the high-ordered bits passed on the stack instead.
-If no GAR is availble, all of the structure is passed on the stack.
+If no GAR is available, all of the structure is passed on the stack.
 
 ==== Unions
 
@@ -532,7 +539,7 @@ Unions are only passed in the GARs or on the stack, depending on its width.
 
 *w~arg~ > 2 × GRLEN*
 
-* The union is passed by reference and are replaced in the argument list with
+* The union is passed by reference and is replaced in the argument list with
 its memory address. If there is an available GAR, the reference is passed in
 the GAR, otherwise, the address is passed on the stack.
 
@@ -560,6 +567,12 @@ And after a variadic argument has been passed on the stack, all future arguments
 will also be passed on the stack, i.e., the last argument register may be left
 unused due to the aligned register pair rule.
 
+*w~arg~ > 2 × GRLEN*
+
+* The arguments are passed by reference and are replaced in the argument list with
+the address. If there is an available GAR, the reference is passed in
+the GAR, and passed on the stack if no GAR is available.
+
 *0 < w~arg~ ≤ GRLEN*
 
 * The variadic arguments are passed in a GAR, or on the stack by value if no
@@ -573,12 +586,6 @@ are on the stack. Otherwise, all of the the argument data is passed
 on the stack by value. It should be noted that fp128 data type
 is passed in an aligned GAR pair (the first register in the pair is
 even-numbered).
-
-*w~arg~ > 2 × GRLEN*
-
-* It’s passed by reference and are replaced in the argument list with
-the address. If there is an available GAR, the reference is passed in
-the GAR, and passed on the stack if no GAR is available.
 
 === Returning
 
@@ -597,7 +604,7 @@ GAR `$a0` if the size of the return value is larger than 2×GRLEN bits.
 [[C-data-types]]
 == Appendix: C data types and machine data types
 
-NOTE: For all base ABI types of LoongArch, the `char` datatype is
+NOTE: For all base ABI types of LoongArch, the `char` data type in C is
 signed by default.
 
 [[dm-lp64]]
