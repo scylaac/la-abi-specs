@@ -30,7 +30,7 @@ ELF for LoongArch-based systems.
 All common ELF definitions referenced in this section
 can be found in http://sco.com/developers/gabi/latest/contents.html[the latest SysV gABI specification].
 
-== Terms and abbreviations
+== Terms and Abbreviations
 
 **ELF** +
 Executable and Linking Format
@@ -76,7 +76,7 @@ object files, respectively.
 
 `0x0` `0x4` `0x5` `0x6` `0x7` are reserved values for `e_flags[2:0]`.
 
-.Base ABI Types
+.Base ABI types
 [%header,cols="^1m,^1m,^3m,^3"]
 |===
 |Name
@@ -110,7 +110,7 @@ Data model is `ILP32`, where `int`, `long` and pointers are 32-bit.
 
 `e_flags[5:3]` correspond to the ABI extension type.
 
-.ABI Extension types
+.ABI extension types
 [%header,cols="^1m,^1,^3"]
 |===
 |Name
@@ -129,7 +129,7 @@ Data model is `ILP32`, where `int`, `long` and pointers are 32-bit.
 [[abi-versioning]]
 `e_flags[7:6]` marks the ABI version of an ELF object.
 
-.ABI Version
+.ABI version
 [%header,cols="^1,^1,^5"]
 |===
 |ABI version
@@ -169,7 +169,7 @@ Data model is `ILP32`, where `int`, `long` and pointers are 32-bit.
 
 == Relocations
 
-.ELF Relocation types
+.ELF relocation types
 [%header,cols="^1,^4m,^4,^4"]
 |===
 |Enum

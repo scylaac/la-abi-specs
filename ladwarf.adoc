@@ -27,12 +27,12 @@ LoongArch, DWARF, Stack frame, CFA, CIE
 The DWARF debugging format for LoongArch uses _DWARF Standard_ <<dwarfstd>>.
 This specification only describes LoongArch-specific definitions.
 
-== Terms and abbreviations
+== Terms and Abbreviations
 
 **DWARF** +
 Debugging With Attributed Record Formats.
 
-== LoongArch-specific DWARF definitions
+== LoongArch-specific DWARF Definitions
 
 === DWARF Register Numbers
 

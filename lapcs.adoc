@@ -41,7 +41,7 @@ However, this document does not formally define how entities of standard program
 languages other than ISO C should be represented in the machine's program context, and
 these language bindings should be described separately if needed.
 
-== Terms and abbreviations
+== Terms and Abbreviations
 
 *FP* +
 Floating-point.
@@ -85,7 +85,7 @@ referring to caller-saved registers and "static registers" for callee-saved regi
 
 ==== General-purpose registers
 
-.General-purpose Register Convention
+.General-purpose register convention
 [%header,cols="^2,^2,^5,^3"]
 |===
 |Name
@@ -146,7 +146,7 @@ referring to caller-saved registers and "static registers" for callee-saved regi
 
 ==== Floating-point registers
 
-.Floating-point Register Convention
+.Floating-point register convention
 [%header,cols="^2,^2,^5,^3"]
 |===
 |Name
@@ -198,7 +198,7 @@ registers, different ABI variants can be adopted to preserve arguments and retur
 values in the registers as long as it is possible.
 
 [[base-abi-types]]
-.Base ABI Types
+.Base ABI types
 [%header,cols="^1m,5"]
 |===
 |Name
@@ -232,7 +232,7 @@ Data model is <<dm-ilp32, ILP32>> for programming languages.
 Different ABI variants are not expected to be compatible and linking objects in these
 variants may result in linker errors or run-time failures.
 
-== Data representation
+== Data Representation
 
 This specification defines machine data types that represents ISO C's scalar,
 aggregate (structure and array) and union data types, as well as their layout
@@ -320,7 +320,7 @@ Zero-length bitfields defined in C and C++ should be ignored and take up
 no storage space in memory or in the registers.
 
 
-== Subroutine calling sequence
+== Subroutine Calling Sequence
 
 A subroutine as described in this specification may have none or arbitrary number
 of *arguments* and one *return value*. Each argument or return value have
@@ -359,7 +359,7 @@ At the entry of a procedure call, the return address of the call site is stored
 in `$ra`. A branch jump to this address should be the last instruction executed
 in the called procedure.
 
-=== The Stack Layout
+=== The stack
 
 Each called subroutine in a program may have a stack frame on the run-time stack.
 A stack frame is a contiguous block of memory with the following layout:
@@ -602,7 +602,7 @@ NOTE: For all base ABI types of LoongArch, the `char` data type in C is
 signed by default.
 
 [[dm-lp64]]
-.LP64 Data Model (base ABI types: `lp64d` `lp64f` `lp64s`)
+.LP64 data model (base ABI types: `lp64d` `lp64f` `lp64s`)
 [%header,cols="^1,^1"]
 |===
 |Scalar type
@@ -640,7 +640,7 @@ signed by default.
 |===
 
 [[dm-ilp32]]
-.ILP32 Data Model (base ABI types: `ilp32d` `ilp32f` `ilp32s`)
+.ILP32 data model (base ABI types: `ilp32d` `ilp32f` `ilp32s`)
 [%header,cols="^1,^1"]
 |===
 |Scalar type
