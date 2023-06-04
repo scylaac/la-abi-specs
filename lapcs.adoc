@@ -562,9 +562,14 @@ fp32 / fp64 members.
 
 ==== Variadic arguments
 
-Variadic arguments are passed in GARs in the same manner as named arguments.
-If one variadic argument is passed on the stack, all subsequent arguments
-will also be passed on the stack.
+A variadic argument list can appear at the end of a procedure's argument list,
+which contains argument objects whose number and types are not statically
+declared with the procedure itself.
+
+A variadic argument's location is also decided using its bit-width. If one
+of the variadic arguments is passed on the stack, all subsequent arguments
+should also be passed on the stack. The variadic arguments never occupy the
+FARs.
 
 *w~arg~ > 2 × GRLEN*
 
@@ -579,10 +584,17 @@ GAR is available.
 
 *GRLEN < w~arg~ ≤ 2 × GRLEN*
 
-* The variadic arguments are passed in a pair of GARs. If only one GAR is
-available, the low-order bits are in the GAR and the high-order bits
-are on the stack. Otherwise, all of the the argument data is passed
-on the stack by value.
+* An argument object in the variadic argument list with 2 × GRLEN alignment
+and size (e.g. an fp128 object) is passed in a pair of adjacent available GARs
+of which the first register is even-numbered. If only one GAR is available,
+the argument is passed on the stack, and this GAR would not be used for passing
+subsequent argument objects.
+
+* For other types of argument objects, the variadic arguments are passed in a
+pair of GARs. If only one GAR is available, the low-order bits are in the GAR
+and the high-order bits are on the stack.
+
+* If no GAR is available, the argument object is passed on the stack by value.
 
 === Returning
 
