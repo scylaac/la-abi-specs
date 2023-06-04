@@ -563,14 +563,13 @@ fp32 / fp64 members.
 ==== Variadic arguments
 
 Variadic arguments are passed in GARs in the same manner as named arguments.
-And after a variadic argument has been passed on the stack, all future arguments
-will also be passed on the stack, i.e., the last argument register may be left
-unused due to the aligned register pair rule.
+If one variadic argument is passed on the stack, all subsequent arguments
+will also be passed on the stack.
 
 *w~arg~ > 2 × GRLEN*
 
-* The arguments are passed by reference and are replaced in the argument list with
-the address. If there is an available GAR, the reference is passed in
+* The arguments are passed by reference and are replaced in the argument list
+with the address. If there is an available GAR, the reference is passed in
 the GAR, and passed on the stack if no GAR is available.
 
 *0 < w~arg~ ≤ GRLEN*
@@ -583,23 +582,18 @@ GAR is available.
 * The variadic arguments are passed in a pair of GARs. If only one GAR is
 available, the low-order bits are in the GAR and the high-order bits
 are on the stack. Otherwise, all of the the argument data is passed
-on the stack by value. It should be noted that fp128 data type
-is passed in an aligned GAR pair (the first register in the pair is
-even-numbered).
+on the stack by value.
 
 === Returning
 
-In general, `$a0` and `$a1` are used to return non-floating-point values,
-while `$fa0` and `$fa1` are used to return floating-point values.
+In general, `$a0` and `$a1` are used for returning non-floating-point values,
+while `$fa0` and `$fa1` are used for returning floating-point values.
 
-Values are returned in the same manner as a first named argument
+Values are returned in the same manner the first named argument
 of the same type would be passed. If such an argument would have
-been passed by reference, the caller allocates memory for the return
-value, and passes the address as an implicit first argument.
-
-The reference of the return value is returned that is stored in
-GAR `$a0` if the size of the return value is larger than 2×GRLEN bits.
-
+been passed by reference, the caller should allocate memory for the
+return value, and passes the address as an implicit first argument
+that is stored in `$a0`.
 
 [[C-data-types]]
 == Appendix: C data types and machine data types
