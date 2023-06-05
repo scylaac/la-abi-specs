@@ -23,7 +23,8 @@ contact wuqingling@loongson.cn regarding how to sign the CLA.
 
 ### Make the actual pull request
 
-Follow https://docs.github.com/en/pull-requests[Github pull requests documentation] to submit the PR.
+Follow [Github pull requests documentation](https://docs.github.com/en/pull-requests)
+to submit the PR.
 
 ### Review of pull request
 

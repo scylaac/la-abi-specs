@@ -25,7 +25,7 @@ DWARF for the LoongArch™ Architecture                    | [ladwarf](ladwarf.a
 
 ## Contributing
 
-Please refer to the contribution guidelines in [CONTRIBUTING](CONTRIBUTING.adoc).
+Please refer to the contribution guidelines in [CONTRIBUTING](CONTRIBUTING.md).
 
 ## License
 
