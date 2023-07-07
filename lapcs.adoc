@@ -316,9 +316,6 @@ their specified width is irrelevant.
 It is possible to define unnamed bit-fields in C. The declared type of these
 bit-fields do not affect the alignment of a structure or union.
 
-Zero-length bitfields defined in C and {Cpp} should be ignored and take up
-no storage space in memory or in the registers.
-
 
 == Subroutine Calling Sequence
 
@@ -503,10 +500,11 @@ wide, it is passed in an FAR if available. If the structure consists of two
 floating-point members both within FRLEN bits wide, it is passed in two FARs if
 available. If the structure consists of one integer member within GRLEN bits wide
 and one floating-point member within FRLEN bits wide, it is passed in a GAR and
-an FAR if available. Note that in this case, members containing empty structures
-or unions are ignored, even in {Cpp}, unless they have nontrivial copy
-constructors or destructors. But there is an exception that non-zero-length
-array of empty structures or unions are not ignored in {Cpp}.
+an FAR if available. Note that in this case, zero-length bit-fields or arrays
+are ignored and empty structures or unions are also ignored, even in {Cpp},
+unless they have nontrivial copy constructors or destructors. But there is an
+exception that non-zero-length array of empty structures or unions are not
+ignored in {Cpp}.
 
 * Otherwise, the structure is passed according to the same rule as structures
 without floating-point members which is described above.
