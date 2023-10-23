@@ -1,5 +1,5 @@
 = Procedure Call Standard for the LoongArch™ Architecture
-Version 20230519 +
+Version 20231103 +
 Copyright © Loongson Technology 2023. All rights reserved.
 
 == Abstract
@@ -20,6 +20,9 @@ LoongArch, Procedure call, Calling conventions, Data layout
 
 |20230519
 |initial version, derived from the original __LoongArch ELF psABI__ document.
+
+|20231103
+|revised the parameter passing rules of structures.
 |====
 
 == Introduction

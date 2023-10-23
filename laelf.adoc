@@ -1,5 +1,5 @@
 = ELF for the LoongArch™ Architecture
-Version 20230519 +
+Version 20231102 +
 Copyright © Loongson Technology 2023. All rights reserved.
 
 == Abstract
@@ -20,6 +20,10 @@ LoongArch, ELF, ABI, SysV gABI, ELF header, Relocations
 
 |20230519
 |initial version, derived from the original __LoongArch ELF psABI__ document.
+
+|20231102
+|added relocation R_LARCH_CALL36, removed R_LARCH_DELETE / R_LARCH_CFA, and
+fixed the uleb128 relocation name.
 |====
 
 == Introduction
