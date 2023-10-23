@@ -5,6 +5,7 @@ Copyright © Loongson Technology 2023. All rights reserved.
 :toclevels: 3
 :toctitle:
 :doctype: article
+:title-page:
 :icons: font
 
 toc::[]
